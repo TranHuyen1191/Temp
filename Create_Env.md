@@ -1,6 +1,6 @@
-Ubuntu 20.04:     
+To install the necessary packages and re-create my environment, after installing Ubuntu 20.04.2 LTS, you can follow the instructions below.
 
-# Install sublime-text and anaconda 
+# I. Install sublime-text and anaconda 
 
 	sudo apt update
 	sudo apt install apt-transport-https ca-certificates curl software-properties-common
@@ -12,7 +12,7 @@ Ubuntu 20.04:
 	sh Anaconda3-2020.11-Linux-x86_64.sh -b -f 
 	~/anaconda3/bin/conda init bash
 
-# Check NVIDIA 
+# II. Check NVIDIA 
 	inxi -Gx
 	################ OUTPUT ############# 
 	Graphics: 	Device-1: NVIDIA vendor: ZOTAC driver: nvidia v: 470.57.02 bus ID: 65:00.0
@@ -21,7 +21,7 @@ Ubuntu 20.04:
 						 OpenGL: renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 v: 4.6.0 NVIDIA 470.57.02 direct render: Yes 
 	#############################
 
-# Install driver
+# III. Install driver and CUDA toolkit
 
 	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
 	sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
@@ -65,7 +65,8 @@ Solution: Manually install packages:
 	sudo apt-get install --no-install-recommends  cuda-11-0  libcudnn8   libcudnn8-dev
 	sudo apt install nvidia-cuda-toolkit
 	nvcc -V
-	
+
+# IV. Re-create my environment
 ## Option 1: Manually create environment using Conda
 	conda create -n tfmixer pip python=3.8 numpy=1.18.5 tensorflow=2.3
 	pip install flax
@@ -98,10 +99,15 @@ Solution: Manually install packages:
 
 ## Option 2: Create environment using transmmiss_env.yml file:
 	conda env create -f transmmiss_env.yml
-
+	
+### Check jax device 
+	python3 -c 'import tensorflow as tf; print(tf.__version__);tf.test.gpu_device_name()'  # for Python 3
+	python3 -c 'import jax ; print(jax.devices())'  # for Python 3
+	
 ## Activate the environment:
 	conda activate tfmixer
 					
+# V. Run scripts
 ## Run jupyter notebook
 	jupyter notebook
 
