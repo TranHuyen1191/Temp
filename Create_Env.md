@@ -1,4 +1,4 @@
-After installing Ubuntu 20.04.2 LTS, please follow the below instructions to re-create my environment.     
+Ubuntu 20.04:     
 
 # Install sublime-text and anaconda 
 
@@ -51,6 +51,7 @@ Solution: Manually install packages:
 
 ## Reboot. Check if GPU is visible using the command: 
 
+	sudo reboot
 	nvidia-smi
 
 ## Install CUDA
